@@ -814,7 +814,7 @@ string getEword() {
 //                     sends a line of an IR to translated.txt
 //                     (saved_E_word or saved_token is used)
 //  Done by: Jared
-ostream fout;
+ofstream fout;
 void gen(string line_type) {
   if (line_type == "VERBPAST" || line_type == "VERBPASTNEG" || line_type == "VERB" || line_type == "VERBNEG" || line_type == "IS" || line_type == "WAS") {
     fout << "TEST: " << line_type << endl;
@@ -841,18 +841,35 @@ string filename;
 int main()
 {
   //** opens the lexicon.txt file and reads it into Lexicon
+  ifstream lex_in;
+  string jword;
+  string eword;
+
+  lex_in.open("lexicon.txt");
+
+  while (lex_in) {
+    lex_in >> jword;
+    lex_in >> eword;
+
+    lexicon.insert({jword, eword});
+  }
   //** closes lexicon.txt 
+  lex_in.close();
+
 
   //** opens the output file translated.txt
 
   cout << "Enter the input file name: ";
   cin >> filename;
   fin.open(filename.c_str());
+  fout.open("translated.txt");
 
   //** calls the <story> to start parsing
-
-  //** closes the input file 
+  story();
+  //** closes the input file
+  fin.close();
   //** closes traslated.txt
+  fout.close();
  
 }// end
 //** require no other input files!
