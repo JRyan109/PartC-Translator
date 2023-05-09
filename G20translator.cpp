@@ -601,7 +601,7 @@ void story() {
   return;
 }
 
-// Grammar: 2 <s>::= [CONNECTOR] <noun> SUBJECT <after subject>
+// Grammar:<s>::= [CONNECTOR #getEword# #gen(CONNECTOR)#] <noun> #getEword# SUBJECT #gen(ACTOR)# <after subject>
 // Done by: Nathan Cimino
 void s() {
   cout << "Processing <s>" << endl;
@@ -609,23 +609,24 @@ void s() {
   switch (next_token()) {
   case CONNECTOR:
     match(CONNECTOR);
+    getEword();
+    gen("CONNECTOR");
     noun();
+    getEword();
     match(SUBJECT);
-    after_subject();
-    break;
-  case WORD1:
-  case PRONOUN:
-    noun();
-    match(SUBJECT);
+    gen("ACTOR");
     after_subject();
     break;
   default:
-    syntaxerror2("<s>", next_token());
-    return;
+    noun();
+    getEword();
+    gen("ACTOR");
+    after_subject();
+    break;
   }
 }
 
-// Grammar: <after subject>::= <verb> <tense> PERIOD | <noun> <after noun>
+// Grammar: <after subject>::= <verb> #getEword# #gen(ACTION)# <tense> #gen(TENSE)# PERIOD | <noun> #getEword# <after noun>
 // Done by: Nathan Cimino
 void after_subject() {
   cout << "Processing <after_subject>" << endl;
@@ -633,22 +634,26 @@ void after_subject() {
   switch (next_token()) {
   case WORD2:
     verb();
+    getEword();
+    gen("ACTION");
     tense();
+    getEword();
+    gen("TENSE");
     match(PERIOD);
     break;
   case WORD1:
   case PRONOUN:
     noun();
+    getEword();
     after_noun();
     break;
   default:
     syntaxerror2("<after_subject>", next_token());
-    return;
   }
 }
 
-// Grammar: <after noun>::= <be> PERIOD | DESTINATION <verb> <tense> PERIOD |
-// OBJECT <after object> Done by: Nathan Cimino
+// Grammar: <after noun>::= <be> #gen(DESCRIPTION)# #gen(TENSE)# PERIOD | DESTINATION #gen(TO)# <verb> #genEword# #gen(ACTION)# <tense> #gen(TENSE)# PERIOD | OBJECT #gen(OBJECT)# <after object>
+//Done by: Nathan Cimino
 void after_noun() {
   cout << "Processing <after_noun>" << endl;
 
@@ -656,17 +661,26 @@ void after_noun() {
   case IS:
   case WAS:
     be();
+    gen("DESCRIPTION");
+    gen("TENSE");
     match(PERIOD);
     break;
   case DESTINATION:
     match(DESTINATION);
+    gen("TO");
     verb();
+    getEword();
+    gen("ACTION");
     tense();
+    getEword();
+    gen("TENSE");
     match(PERIOD);
     break;
   case OBJECT:
     match(OBJECT);
+    gen("OBJECT");
     after_object();
+    getEword();
     break;
   default:
     syntaxerror2("<after_noun>", next_token());
@@ -674,23 +688,33 @@ void after_noun() {
   }
 }
 
-// Grammar: <after object>::= <noun> DESTINATION <verb> <tense> PERIOD | <verb>
-// <tense> PERIOD Done by: Nathan Cimino
+// Grammar: <after object>::= <verb> #getEword()# #gen(ACTION)# <tense> #gen(TENSE)# PERIOD | <noun> #getEword# DESTINATION #gen(TO)# <verb> #getEword# #gen(ACTION)# <tense> #gen(TENSE)# PERIOD
+//Done by: Nathan Cimino
 void after_object() {
   cout << "Processing <after_object>" << endl;
 
   switch (next_token()) {
   case WORD2:
     verb();
+    getEword();
+    gen("ACTION");
     tense();
+    getEword();
+    gen("TENSE");
     match(PERIOD);
     break;
   case WORD1:
   case PRONOUN:
     noun();
+    getEword();
     match(DESTINATION);
+    gen("TO");
     verb();
+    getEword();
+    gen("ACTION");
     tense();
+    getEword();
+    gen("TENSE");
     match(PERIOD);
     break;
   default:
