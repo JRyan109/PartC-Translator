@@ -1,0 +1,9 @@
+1 <story> ::= <s> {<s>}
+2 <s>::= [CONNECTOR] <noun> #getEword# #gen(ACTOR)# SUBJECT <after subject>
+3   <after subject>::= <verb> #getEword# #gen(ACTION)# <tense> PERIOD | <noun> #getEword# <after noun>
+4       <after noun>::= <be> #gen(DESCRIPTION)# #gen(tense)# PERIOD | DESTINATION #gen(TO)# <verb> <tense> PERIOD | OBJECT #gen(OBJECT) #<after object>
+5           <after object>::= <noun> #getEword()# #gen(TO)# DESTINATION <verb> <tense> PERIOD | <verb> <tense> PERIOD
+6 <noun>::= WORD1 | PRONOUN
+7 <verb>::= WORD2 #genEword()# #gen(ACTION)#
+8 <be>::= IS | WAS
+9 <tense>::= #getEword# VERBPAST  #gen(VERBPAST)# | VERBPASTNEG #gen(VERBPASTNEG)# | VERB #gen(VERB)# | VERBNEG #gen(VERBNEG)#
