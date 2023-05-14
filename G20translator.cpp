@@ -1,9 +1,7 @@
-#include <cstdlib>
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <string.h>
-#include <map>
+#include <unordered_map>
 using namespace std;
 
 //=====================================================
@@ -404,7 +402,7 @@ string tokenName[30] = { "ERROR",       "WORD1",   "WORD2",     "PERIOD",
 
 // ------------ Scanner and Driver -----------------------
 
-map<string, tokentype> reservedWords;
+unordered_map<string, tokentype> reservedWords;
 
 // set up table function. //Copy from the reservedWords.txt
 void buildTable() {
@@ -586,6 +584,11 @@ void noun();
 void verb();
 void be();
 void tense();
+
+void getEword();
+
+void gen(string);
+
 
 // Grammar: <story> ::= <s> {<s>}
 // Done by: Jared
@@ -814,7 +817,7 @@ void tense() {
 // Make sure it is easy and fast to look up the translation.
 // Do not change the format or content of lexicon.txt 
 //  Done by: Jared 
-map<string, string> lexicon;
+unordered_map<string, string> lexicon;
 string saved_E_word;
 
 // ** Additions to parser.cpp here:
@@ -822,14 +825,10 @@ string saved_E_word;
 //                 in Lexicon if it is there -- save the result   
 //                 in saved_E_word
 //  Done by: ** 
-string getEword() {
-  if (lexicon.find(saved_lexeme) != lexicon.end()) {
-    saved_E_word = lexicon.at(saved_lexeme);
-    return saved_E_word;
-  }
-  else {
+void getEword() {
+  saved_E_word = lexicon[saved_lexeme];
+  if (saved_E_word == "") {
     saved_E_word = saved_lexeme;
-    return saved_E_word;
   }
 }
 
@@ -871,22 +870,21 @@ int main()
 
   lex_in.open("lexicon.txt");
 
-  while (lex_in) {
-    lex_in >> jword;
+  while (lex_in >> jword) {
     lex_in >> eword;
 
-    lexicon.insert({jword, eword});
+    lexicon.insert(make_pair(jword, eword));
   }
   //** closes lexicon.txt 
   lex_in.close();
 
 
   //** opens the output file translated.txt
-
+  fout.open("translated.txt");
   cout << "Enter the input file name: ";
   cin >> filename;
   fin.open(filename.c_str());
-  fout.open("translated.txt");
+  
 
   //** calls the <story> to start parsing
   story();
