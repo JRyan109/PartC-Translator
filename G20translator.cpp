@@ -1139,7 +1139,7 @@ void tense() {
 
 // Do not change the format or content of lexicon.txt
 
-//  Done by: Jared
+//  Done by: Gabe
 
 map<string, string> lexicon;
 
@@ -1153,7 +1153,7 @@ string saved_E_word;
 
 //                 in saved_E_word
 
-//  Done by: **
+//  Done by: Nate:
 
 void getEword() {
   saved_E_word = lexicon[saved_lexeme];
