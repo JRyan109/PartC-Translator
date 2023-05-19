@@ -13,9 +13,9 @@ do not list his/her name!!!!!
   Who updated which parser functions with getEword and gen calls?
    functions         who
    -------------  ---------
-
-  
-
+getEword          Nathan Cimino
+gen               Jared Ryan
+dictionary/main   Gabriel Santos
 2. Who came to the meeting to put together the work?
   We all met online to work on the project. 
 
@@ -29,5 +29,5 @@ do not list his/her name!!!!!
 
 5. If you did EC error recovery,
    test 7 worked and produced translated.txt and errors.txt?
-   
+   N/A
 
