@@ -1,1 +1,1 @@
-ACTOR: Then
+ACTOR: I/me
