@@ -227,107 +227,6 @@ bool word(string s) {
     return (false);
 }
 
-// bool word(string s) {
-//   int state = 0;
-//   int charpos = 0;
-//   char c;
-//   char vowels[] = "aiueoIE";
-
-//   while (s[charpos] != '\0') {
-//     // c = s[charpos];
-//     switch (state) {
-//       case 0:
-//         if (strchr(vowels, c))
-//           state = 1;
-//         else if (strchr("dwzyj", c))
-//           state = 7;
-//         else if (c == 't')
-//           state = 3;
-//         else if (c == 's')
-//           state = 4;
-//         else if (c == 'c')
-//           state = 5;
-//         else
-//           return false;
-//         break;
-//       case 1:
-//         if (c == 'n')
-//           state = 6;
-//         else if (strchr(vowels, c))
-//           state = 1;
-//         else if (strchr("dwzyj", c))
-//           state = 7;
-//         else if (strchr("bghkmpr", c))
-//           state = 2;
-//         else if (c == 't')
-//           state = 3;
-//         else if (c == 's')
-//           state = 4;
-//         else if (c == 'c')
-//           state = 5;
-//         else
-//           return false;
-//         break;
-//       case 2:
-//         if (strchr(vowels, c))
-//           state = 1;
-//         else if (c == 'y')
-//           state = 7;
-//         else
-//           return false;
-//         break;
-//       case 3:
-//         if (strchr(vowels, c))
-//           state = 1;
-//         else if (c == 's')
-//           state = 7;
-//         else
-//           return false;
-//         break;
-//       case 4:
-//         if (strchr(vowels, c))
-//           state = 1;
-//         else if (c == 'h')
-//           state = 7;
-//         else
-//           return false;
-//         break;
-//       case 5:
-//         if (c == 'h')
-//           state = 7;
-//         else
-//           return false;
-//         break;
-//       case 6:
-//         if (strchr(vowels, c))
-//           state = 1;
-//         else if (strchr("dwzyj", c))
-//           state = 7;
-//         else if (strchr("bghkmpr", c))
-//           state = 2;
-//         else if (c == 't')
-//           state = 3;
-//         else if (c == 's')
-//           state = 4;
-//         else if (c == 'c')
-//           state = 5;
-//         else
-//           return false;
-//         break;
-//       case 7:
-//         if (strchr(vowels, c))
-//           state = 1;
-//         else
-//           return false;
-//     }
-//     charpos++;
-//   }
-
-//   if (state == 0 || state == 1 || state == 6)
-//     return true;
-//   else
-//     return false;
-// }
 
 // PERIOD DFA
 // Done by: Jared Ryan
@@ -860,7 +759,7 @@ void gen(string line_type) {
 // ---------------- Driver ---------------------------
 string filename;
 // The final test driver to start the translator
-// Done by:  **
+// Done by:  Nathan Cimino
 int main()
 {
   //** opens the lexicon.txt file and reads it into Lexicon
